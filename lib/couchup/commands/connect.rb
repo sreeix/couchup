@@ -3,7 +3,11 @@ module Commands
     def run(params ={})
       Couchup.host = params[:host] || "locahost"
       Couchup.port = params[:post] || 5984
-      puts "Connected to #{Couchup.host}:#{Couchup.port}" if(Couchup.ready?)
+      if(Couchup.ready?)
+        puts "Connected to #{Couchup.host}:#{Couchup.port}" 
+      else
+        puts "Could not connect to #{Couchup.host}:#{Couchup.port}"
+      end
     end
   end
 end
