@@ -9,9 +9,11 @@ GEM
     mime-types (1.16)
     rest-client (1.6.1)
       mime-types (>= 1.16)
+    yajl-ruby (0.8.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   couchrest
+  yajl-ruby
