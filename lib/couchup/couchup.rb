@@ -10,7 +10,7 @@ class Couchup
     end
     
     def database
-      @db.name
+      @db
     end
     
     def ready?
