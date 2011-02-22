@@ -10,7 +10,7 @@ module Couchup
     private
     def self.view(options, *params)
       name = params.shift
-      view_params = {}.merge(options)
+      view_params = {:include_docs => true}.merge(options)
       view_params.merge!( :key => params.first) if params.size == 1
       view_params.merge!( :keys => params) if params.size == 2
       response = Couchup.database.view(name, view_params)
