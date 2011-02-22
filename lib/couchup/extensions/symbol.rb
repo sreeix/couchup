@@ -3,6 +3,9 @@ class Symbol
     Object.const_get(to_s)
   end
   
+  def camelize
+    to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+  end
   # cargo culted from rails inflector.
   def underscore
     word = to_s.dup
