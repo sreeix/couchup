@@ -2,11 +2,12 @@ module Couchup
   module Commands
     class Show
     
-      def run(param = "databases")
-        if(param == 'databases')
+      def run(param)
+        param = param.to_s
+        if(param.blank? || param == 'databases' )
           puts Couchup.databases.inspect
         else
-          puts Couchup.database.views.inspect
+          puts Couchup.views.inspect
         end
       end
       def self.describe

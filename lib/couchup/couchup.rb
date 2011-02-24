@@ -13,7 +13,15 @@ module Couchup
       def database
         @db
       end
-    
+      
+      def views(design = nil)
+        params = design.nil? ? {:startkey => '_design', :endkey => '_design0'} : {:key => "_design\\#{design}"}
+        designs = database.documents(params.merge(:include_docs => true))["rows"]
+        designs.collect do |d|
+          d["doc"]["views"].keys
+        end.flatten
+      end
+      
       def ready?
         uuid = nil
         begin
