@@ -5,9 +5,10 @@ module Couchup
     end
 
     def self.reduce(*params)
-      view({:reduce => true}, *params, )
+      view({:reduce => true}, *params)
     end
-    private
+    
+  private
     def self.view(options, *params)
       name = params.shift
       view_params = {:include_docs => true}.merge(options)
@@ -17,7 +18,5 @@ module Couchup
       puts "Found #{response['total_rows']} items"
       response["rows"].each{|r| puts r.inspect}
     end
-  
-    
   end
 end
