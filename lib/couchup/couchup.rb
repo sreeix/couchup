@@ -18,7 +18,7 @@ module Couchup
         params = design.nil? ? {:startkey => '_design', :endkey => '_design0'} : {:key => "_design\\#{design}"}
         designs = database.documents(params.merge(:include_docs => true))["rows"]
         designs.collect do |d|
-          d["doc"]["views"].keys
+          d["doc"]["views"].keys.collect{|view| "#{d['key'].gsub('_design/','')}/#{view}"}
         end.flatten
       end
       

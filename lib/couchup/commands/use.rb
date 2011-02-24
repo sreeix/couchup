@@ -2,9 +2,9 @@ module Couchup
   module Commands
     class Use
       def run(database)
-      
-        if Couchup.databases.include? database
-          Couchup.database = database
+        db = database.to_s
+        if Couchup.databases.include? db
+          Couchup.database = db
           puts Couchup.database.info.inspect
         else
           puts "Database was not found"

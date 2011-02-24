@@ -1,7 +1,12 @@
 module Couchup
   class MapReduce
     def self.map(*params)
-      view({}, *params)
+      #FIXME. should probably get view meta data to do one view call. but this is also doing 2 calls.
+      begin
+        view({}, *params)
+      rescue RestClient::BadRequest
+        view({:reduce => false}, *params)
+      end
     end
 
     def self.reduce(*params)
