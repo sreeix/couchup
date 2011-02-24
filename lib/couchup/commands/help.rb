@@ -5,7 +5,7 @@ module Couchup
         commands = param.nil? ? Commands.constants : [param.camelize]
         commands.each do |stuff|
           k = Commands.const_get(stuff)
-          print stuff.downcase; print "\t\t"
+          print stuff.underscore; print "\t\t"
           puts k.respond_to?(:describe) ? k.describe : "No Help"
         end
       end
