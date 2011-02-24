@@ -15,9 +15,11 @@ module Couchup
       if params.size == 1
         val = params.first
         if val.is_a? Array
-          view_params.merge!( :keys => params) 
+          view_params.merge!(:keys => val) 
+        elsif val.is_a? Hash
+          view_params.merge!(val)
         else
-          view_params.merge!( :key => params.first) if val
+          view_params.merge!( :key => val) if val
         end
       end
       response = Couchup.database.view(name, view_params)
