@@ -12,8 +12,14 @@ module Couchup
     def self.view(options, *params)
       name = params.shift
       view_params = {:include_docs => true}.merge(options)
-      view_params.merge!( :key => params.first) if params.size == 1
-      view_params.merge!( :keys => params) if params.size == 2
+      if params.size == 1
+        val = params.first
+        if val.is_a? Array
+          view_params.merge!( :keys => params) 
+        else
+          view_params.merge!( :key => params.first) if val
+        end
+      end
       response = Couchup.database.view(name, view_params)
       puts "Found #{response['total_rows']} items"
       response["rows"].each{|r| puts r.inspect}
