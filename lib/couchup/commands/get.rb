@@ -6,7 +6,7 @@ module Couchup
       end
 
       def self.describe
-        "get [id] retuns the document with the id"
+        "get [id] retuns the document with the id. Just 'get' retrives all documents from the current database"
       end
     end
   end
