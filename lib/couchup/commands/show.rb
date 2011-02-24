@@ -3,10 +3,14 @@ module Couchup
     class Show
     
       def run(param = "databases")
-        puts Couchup.databases.inspect
+        if(param == 'databases')
+          puts Couchup.databases.inspect
+        else
+          puts Couchup.database.views.inspect
+        end
       end
       def self.describe
-        "show databases"
+        "show databases if databases is specified or views if vies is specified. defaults to databases."
       end
     end
   end

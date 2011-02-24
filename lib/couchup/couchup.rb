@@ -17,12 +17,12 @@ module Couchup
       def ready?
         uuid = nil
         begin
-          uuid = server.next_uuid
+          puts (info = server.info)
         rescue
           puts $!.backtrace
           puts $!.inspect
         end
-        !uuid.nil?
+        !info.nil?
       end
 
       def get(id)
