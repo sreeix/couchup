@@ -23,11 +23,12 @@ module Couchup
         file.write("\n------BEGIN Reduce(Remove the function if you don't want a reduce)-------\n")
         file.write(view.reduce? ? view.reduce: ::Couchup::View::REDUCE_TEMPLATE )
         file.write("\n------END------\n")
+        file.write("\nDelete Everything to do nothing.\n")
         file.close
         
         `#{ENV['EDITOR']} #{tmp_file_path}`
         contents = File.open(tmp_file_path).read
-        ::Couchup::View.create(name, contents)
+        ::Couchup::View.create(name, contents) unless contents.blank?
         file.close
         file.unlink
       end
