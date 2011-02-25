@@ -1,25 +1,65 @@
 module Couchup
   class View
+    MAP_TEMPLATE = "function(doc){\n}\n"
+    REDUCE_TEMPLATE = ""
     
     def initialize(name)
       @design, @name = name.split "/"
-      design, name = name.split "/"
       begin
-        doc = Couchup.database.get("_design/#{design}")
+        @doc = Couchup.database.get("_design/#{@design}")
       rescue
-        # handle creation of new design doc.
+        puts "Design #{@design} not found creating a new one"
+        @doc = {"_id" => "_design/#{@design}", :language => 'javascript', :views => {}}
+        save
+        @doc = Couchup.database.get("_design/#{@design}")
+      end
+    end
+    
+    def save
+      Couchup.database.save_doc(@doc)  
+    end
+    
+    def map
+      @doc["views"][@name]["map"]
+    end
+    
+    def map=(fun)
+      if map?
+        @doc["views"][@name]["map"] = fun 
+      else
+        @doc["views"][@name] = {:map => fun}
       end
     end
 
-    def self.create(name, file_contents)
-      v = doc["views"][name]
-      map, reduce = parse(file_contents)
+    def reduce
+      @doc["views"][@name]["reduce"]
+    end
 
-      puts "View Exists overwriting." unless v.nil? 
-      v = (doc["views"][name]= {})  if v.nil? 
-      v["map"] = map
-      v["reduce"] = reduce unless reduce.blank?
-      Couchup.database.save_doc(doc)
+    def reduce=(fun)
+      if reduce?
+        @doc["views"][@name]["reduce"] = fun
+      else
+        @doc["views"][@name] ={:reduce => fun}
+      end
+    end
+
+    def map?
+      @doc["views"][@name] && !@doc["views"][@name]["map"].blank?
+    end
+
+    def reduce?
+      @doc["views"][@name] && !@doc["views"][@name]["reduce"].blank?
+    end
+    
+    
+    def self.create(name, file_contents)
+      v = new(name)
+      
+      map, reduce = parse(file_contents)
+      v.map = map
+      v.reduce = reduce unless reduce.blank?
+      puts v.inspect
+      v.save
     end
     
     def self.parse(file_contents)

@@ -13,16 +13,16 @@ module Couchup
       
       def create_view(name)
         raise "Please set your EDITOR env variable before using view" if ENV['EDITOR'].nil? 
-        view = View.new(name)  
+        view = ::Couchup::View.new(name)  
         file = Tempfile.new(name.gsub("/", "_"))
         tmp_file_path = file.path
         file.write("------BEGIN Map-------\n")
-        file.write(view.map) if view.map?
-        file.write("------END------\n\n")
+        file.write( view.map? ? view.map : ::Couchup::View::MAP_TEMPLATE)
+        file.write("\n------END------\n")
         
-        file.write("------BEGIN Reduce(Remove the function if you don't want a reduce)-------\n")
-        file.write(view.reduce) if view.reduce?
-        file.write("------END------\n")
+        file.write("\n------BEGIN Reduce(Remove the function if you don't want a reduce)-------\n")
+        file.write(view.reduce? ? view.reduce: ::Couchup::View::REDUCE_TEMPLATE )
+        file.write("\n------END------\n")
         file.close
         
         `#{ENV['EDITOR']} #{tmp_file_path}`
@@ -33,7 +33,7 @@ module Couchup
       end
       
       def self.describe
-        "Creates a new database and switches to the database"
+        "Creates a new database and switches to the database if using create :database, :foo or a new view if using create :view,'Rider/by_number'"
       end
     end
   end

@@ -1,6 +1,6 @@
 class String
   def blank?
-    nil || empty?
+    nil || strip.empty?
   end
   
   def constantize
