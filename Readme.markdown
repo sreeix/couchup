@@ -34,8 +34,19 @@ create "database", "riders"
 Some Common Things to do with couchup
 =====================================
 
+Command line Params
+-------------------
+
+> couchup --help will print the help
+ 
+ use -h (or--host) to set the host machine to connect to
+ use -p (or --port) to set the port of the host couchdb
+ use -d (or --database) to set the database to use by default
+
+
 Basics
 --------
+
 
 Connects to the couch server at foo.bar.com on the default port of 5984
 

@@ -21,6 +21,10 @@ module Couchup
           d["doc"]["views"].keys.collect{|view| "#{d['key'].gsub('_design/','')}/#{view}"}
         end.flatten
       end
+      def delete_doc(id)
+        doc = database.get(id)
+        database.delete_doc(doc)
+      end
       
       def ready?
         uuid = nil
