@@ -64,11 +64,6 @@ gets docucment by the given ID.
 > get "id"
 
 
-and because it is all in ruby you can do stuff like
-
-get("123")[:history].first[:name]
-
-
 #Running views
 --------------
 
