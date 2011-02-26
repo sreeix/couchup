@@ -6,7 +6,7 @@ module Couchup
         (params.first.nil? ? Couchup.database : Couchup.database(params.first)).delete! if op_type == 'database'
         ::Couchup::View.new(params.first).delete! if op_type == 'view'
         Couchup.delete_doc(params.first) if op_type == 'doc'
-        Couchup.delete_all_docs if op_type == 'all_docs'
+        Couchup.delete_all_docs(params.first) if op_type == 'all_docs'
         
       end
 

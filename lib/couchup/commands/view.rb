@@ -2,7 +2,10 @@ module Couchup
   module Commands
     class View
       def run(*params)
-        MapReduce.reduce(*params)
+        rows = MapReduce.reduce(*params)
+        puts "Found #{rows.size} item(s)"
+        rows.each{|r| puts r.inspect}
+        nil
       end
     
       def self.describe(params = nil)

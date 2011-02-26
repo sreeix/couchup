@@ -25,8 +25,9 @@ module Couchup
         doc = database.get(id)
         database.delete_doc(doc)
       end
-      def delete_all_docs
-        all(:include_docs => true)["rows"].collect{|d| d["doc"]}.each do |doc|
+      def delete_all_docs(view_name)
+        all_docs = view_name.nil? ? all(:include_docs => true)["rows"] : MapReduce.map(view_name)
+        all_docs.collect{|d| d["doc"]}.each do |doc|
           database.delete_doc(doc) unless (doc["_id"] =~ /^_design/)
         end
       end

@@ -2,7 +2,11 @@ module Couchup
   module Commands
     class Map
       def run(*params)
-        MapReduce.map(*params)
+        rows = MapReduce.map(*params)
+        puts "Found #{rows.size} item(s)"
+        rows.each{|r| puts r.inspect}
+        nil
+        
       end
     
       def self.describe(p = nil)
