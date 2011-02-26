@@ -18,8 +18,3 @@ Couchup::Commands.constants.each do |c|
       end
     end"
 end
-
-puts "Type help to view the list of things you can do. And Yeah Relax."
-
-
-

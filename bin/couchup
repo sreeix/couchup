@@ -3,6 +3,8 @@ require File.expand_path( "../../lib/couchup", __FILE__)
 require 'irb'
 require 'irb/completion'
 
+require 'optparse'
+
 if File.exists? ".irbrc"
   ENV['IRBRC'] = ".irbrc"
 end
@@ -10,6 +12,32 @@ end
 if File.exists?( File.expand_path(rcfile = "~/.couchuprc") )
   load(rcfile)
 end
+
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: example.rb [options]"
+
+  opts.on("-h", "--host HOST", "Host to connect to (Defaults to localhost)") do |h|
+    options[:host] = h
+  end
+
+  opts.on("-p", "--port PORT", "Port to connect to (Defaults to 5984)") do |port|
+    options[:port] = port
+  end
+
+  opts.on("-d", "--database DATABASE", "Database to connect to.") do |db|
+    options[:db] = db
+  end
+  
+end.parse!
+
+host = options[:host] || 'localhost'
+port = options[:port] || "5984"
+Couchup::Commands::Connect.new.run(host, port)
+Couchup::Commands::Use.new.run(options[:db]) unless  options[:db].nil?
+
+puts "Type help to view the list of things you can do. And Yeah Relax."
 
 ARGV.clear
 
