@@ -50,6 +50,11 @@ module Couchup
     def reduce?
       @doc["views"][@name] && !@doc["views"][@name]["reduce"].blank?
     end
+
+    def delete!
+      @doc["views"].delete(@name)
+      save
+    end
     
     
     def self.create(name, file_contents)
