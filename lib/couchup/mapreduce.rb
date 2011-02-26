@@ -25,8 +25,9 @@ module Couchup
       end
       response = Couchup.database.view(name, view_params)
       rows = response["rows"]
-      puts "Found #{rows.size} items"
+      puts "Found #{rows.size} item(s)"
       rows.each{|r| puts r.inspect}
+      nil
     end
   end
 end
