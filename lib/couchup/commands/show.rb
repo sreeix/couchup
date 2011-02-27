@@ -11,7 +11,7 @@ module Couchup
       end
 
       def self.describe
-        "show databases if databases is specified or views if vies is specified. defaults to databases."
+        "show databases if databases is specified or views if views is specified. defaults to databases."
       end
     end
   end
