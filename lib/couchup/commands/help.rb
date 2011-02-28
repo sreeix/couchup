@@ -7,7 +7,7 @@ module Couchup
           k = Commands.const_get(stuff)
           print stuff.underscore
           print (stuff.underscore.size > 10) ? "\t" : "\t\t"  
-          puts k.respond_to?(:describe) ? k.describe : "No Help"
+          ap k.respond_to?(:describe) ? k.describe : "No Help"
         end
       end
     

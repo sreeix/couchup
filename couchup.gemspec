@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency('json')
   s.add_dependency('mime-types')
   s.add_dependency('rest-client')
+  s.add_dependency('awesome-print')
   
   s.add_development_dependency('rspec', '1.3.0')
   s.add_development_dependency('rake')

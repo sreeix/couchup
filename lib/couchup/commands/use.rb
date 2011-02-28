@@ -5,9 +5,9 @@ module Couchup
         db = database.to_s
         if Couchup.databases.include? db
           Couchup.database = db
-          puts Couchup.database.info.inspect
+          ap Couchup.database.info
         else
-          puts "Database was not found"
+          ap "Database was not found"
         end
       end
     

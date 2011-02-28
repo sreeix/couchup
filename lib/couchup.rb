@@ -1,5 +1,12 @@
 # require 'yajl-ruby'
 require 'couchrest'
+begin
+  require 'ap'
+rescue LoadError
+  puts "'gem install awesome_print' for nicer formatting"
+  alias ap puts
+end
+
 require  File.expand_path '../couchup/couchup', __FILE__
 Dir[File.expand_path('../couchup/commands/*.rb',__FILE__)].each { |file| require file}
 Dir[File.expand_path('../couchup/extensions/*.rb',__FILE__)].each { |file| require file}
@@ -16,9 +23,11 @@ Couchup::Commands.constants.each do |c|
       begin
         instance = Couchup::Commands.const_get(:#{c}).new
         Couchup::Couchup.last_result = instance.run(*args)
+        nil
       rescue 
-        puts $!.inspect
-        puts $!.backtrace if Couchup::Couchup.debug?
+        puts $!.class
+        ap $!.inspect
+        ap $!.backtrace if Couchup::Couchup.debug?
       end
     end"
 end

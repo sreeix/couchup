@@ -5,9 +5,9 @@ module Couchup
         Couchup.host = host
         Couchup.port = port
         if(Couchup.ready?)
-          puts "Connected to #{Couchup.host}:#{Couchup.port}" 
+          ap "Connected to #{Couchup.host}:#{Couchup.port}" 
         else
-          puts "Could not connect to #{Couchup.host}:#{Couchup.port}"
+          ap "Could not connect to #{Couchup.host}:#{Couchup.port}"
         end
       end
       def self.describe

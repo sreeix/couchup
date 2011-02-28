@@ -4,9 +4,9 @@ module Couchup
       def run(*param)
         option = param.first.to_s
         if(option.blank? || option == 'databases' )
-          puts Couchup.databases.inspect
+          ap Couchup.databases
         else
-          puts Couchup.views(param.second).inspect
+          ap Couchup.views(param.second)
         end
       end
 

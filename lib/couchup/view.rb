@@ -8,7 +8,7 @@ module Couchup
       begin
         @doc = Couchup.database.get("_design/#{@design}")
       rescue
-        puts "Design #{@design} not found creating a new one"
+        ap "Design #{@design} not found creating a new one"
         @doc = {"_id" => "_design/#{@design}", :language => 'javascript', :views => {}}
         save
         @doc = Couchup.database.get("_design/#{@design}")
@@ -63,7 +63,7 @@ module Couchup
       map, reduce = parse(file_contents)
       v.map = map
       v.reduce = reduce unless reduce.blank?
-      puts v.inspect
+      ap v
       v.save
     end
     

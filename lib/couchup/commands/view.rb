@@ -3,7 +3,8 @@ module Couchup
     class View
       def run(*params)
         rows = MapReduce.reduce(*params)
-        puts "Found #{rows.size} item(s)"
+        ap "Found #{rows.size} item(s)"
+        ap rows
         rows
       end
     
