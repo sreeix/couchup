@@ -14,7 +14,7 @@ Couchup::Commands.constants.each do |c|
         instance.run(*args)
       rescue 
         puts $!.inspect
-        puts $!.backtrace
+        puts $!.backtrace if Couchup.debug?
       end
     end"
 end

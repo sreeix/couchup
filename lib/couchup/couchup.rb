@@ -50,6 +50,12 @@ module Couchup
       def all(options={})
         @db.documents(options)
       end
+      def debug=(value)
+        @debug = value
+      end
+      def debug?
+        @debug == true
+      end
     
       def databases
         server.databases

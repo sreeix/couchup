@@ -29,6 +29,10 @@ OptionParser.new do |opts|
   opts.on("-d", "--database DATABASE", "Database to connect to.") do |db|
     options[:db] = db
   end
+
+  opts.on("-b", "--debug", "Show debugging information") do |bug|
+    options[:bug] = bug
+  end
   
 end.parse!
 
@@ -36,7 +40,7 @@ host = options[:host] || 'localhost'
 port = options[:port] || "5984"
 Couchup::Commands::Connect.new.run(host, port)
 Couchup::Commands::Use.new.run(options[:db]) unless  options[:db].nil?
-
+Couchup.debug = true if options[:bug]
 puts "Type help to view the list of things you can do. And Yeah Relax."
 
 ARGV.clear
