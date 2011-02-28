@@ -16,12 +16,16 @@ module Couchup
   private
     def self.view(options, *params)
       name = params.shift
-      view_params = {:include_docs => true}.merge(options)
+      view_params = {:include_docs => true}
       if params.size == 1
         val = params.first
-        view_params.merge!(:keys => val) if val.is_a? Array
-        view_params.merge!(val) if val.is_a? Hash
-        view_params.merge!(:key => val) unless val.nil?
+        if val.is_a? Array
+          view_params.merge!(:keys => val)
+        elsif val.is_a? Hash
+          view_params.merge!(val)
+        else 
+          view_params.merge!(:key => val) unless val.nil?
+        end
       end
       response = Couchup.database.view(name, view_params)
       rows = response["rows"]
