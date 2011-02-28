@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["V Sreekanth"]
   s.email       = ["sreeix@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "http://blog.activesphere.com/introducing-couchup-an-interactive-couchdb-co"
   s.summary     = %q{Command line inteface to a couchdb deployment.}
   s.description = %q{Command line inteface to a couchdb deployment.}
 
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.default_executable = "ey"
+  s.default_executable = "couchup"
 
   s.require_paths = ["lib"]
   
