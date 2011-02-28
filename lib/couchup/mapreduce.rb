@@ -3,10 +3,19 @@ module Couchup
     def self.map(*params)
       #FIXME. should probably get view meta data to do one view call. but this is also doing 2 calls.
       begin
-        view({}, *params)
+        response = view({:include_docs => true}, *params)
       rescue RestClient::BadRequest
-        view({:reduce => false}, *params)
+        response = view({:reduce => false, :include_docs => true}, *params)
       end
+      
+      docs = response["rows"].collect do |r|
+        r["doc"].instance_eval "def save
+          ::Couchup::Couchup.database.save_doc(self)
+        end
+        "
+        r["doc"]
+      end
+      
     end
 
     def self.reduce(*params)
@@ -16,7 +25,7 @@ module Couchup
   private
     def self.view(options, *params)
       name = params.shift
-      view_params = {:include_docs => true}.merge(options)
+      view_params = options
       if params.size == 1
         val = params.first
         if val.is_a? Array
@@ -28,13 +37,6 @@ module Couchup
         end
       end
       response = Couchup.database.view(name, view_params)
-      docs = response["rows"].collect do |r|
-        r["doc"].instance_eval "def save
-          ::Couchup::Couchup.database.save_doc(self)
-        end
-        "
-        r["doc"]
-      end
     end
   end
 end

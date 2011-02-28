@@ -19,9 +19,14 @@ module Couchup
         params = design.nil? ? {:startkey => '_design', :endkey => '_design0'} : {:key => "_design\\#{design}"}
         designs = database.documents(params.merge(:include_docs => true))["rows"]
         designs.collect do |d|
-          d["doc"]["views"].keys.collect{|view| "#{d['key'].gsub('_design/','')}/#{view}"}
+          d["doc"]["views"].keys.collect do |view| 
+            map = !d["doc"]["views"][view]["map"].blank?
+            reduce = !d["doc"]["views"][view]["reduce"].blank?
+            {"#{d['key'].gsub('_design/','')}/#{view}"  => {:reduce => reduce, :map => map}}
+          end
         end.flatten
       end
+      
       def delete_doc(id)
         doc = database.get(id)
         database.delete_doc(doc)
