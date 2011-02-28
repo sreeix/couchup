@@ -4,9 +4,7 @@ module Couchup
       def run(*params)
         rows = MapReduce.map(*params)
         puts "Found #{rows.size} item(s)"
-        rows.each{|r| puts r.inspect}
-        nil
-        
+        rows
       end
     
       def self.describe(p = nil)
