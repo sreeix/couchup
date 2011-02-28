@@ -63,6 +63,18 @@ To use a specific database switch with.
 Most Couchup commands need you to be on a specific database.
 
 
+Shortcuts
+----------
+
+last_result or __ are short hands to the last result returned by couch operations. These are typically json document( or array of documents)
+Most commands that are in the form of <operation> <:view|| :database || :doc> have short hands like <operation>_<view> or <operation>_database
+    
+eg. *create_database :foo*  is same as  *create :database, :foo*
+
+or *create_view 'Rider/test'* is the same as *create :view, 'Rider/test'*
+
+    
+
 # Getting documents
 --------------------
 
@@ -119,6 +131,20 @@ Will pop a textmate/emacs/vi window with some templates. If the view exists it w
 
 
 To cancel creation of the view, just empty the contents of the file and save.
+
+# Modifying Documents
+-----------------------
+
+We use the last_result that is described in the Basics section, and leverage ruby to do the save. 
+
+get("<id>")
+last_result[:number] = 100
+last_result.save
+
+
+You could do this with the view results as well.    
+
+
 
 
 

@@ -28,7 +28,13 @@ module Couchup
         end
       end
       response = Couchup.database.view(name, view_params)
-      rows = response["rows"]
+      docs = response["rows"].collect do |r|
+        r["doc"].instance_eval "def save
+          ::Couchup::Couchup.database.save_doc(self)
+        end
+        "
+        r["doc"]
+      end
     end
   end
 end
