@@ -16,7 +16,7 @@ module Couchup
   private
     def self.view(options, *params)
       name = params.shift
-      view_params = {:include_docs => true}
+      view_params = {:include_docs => true}.merge(options)
       if params.size == 1
         val = params.first
         if val.is_a? Array
