@@ -2,7 +2,7 @@ module Couchup
   module Commands
     class Get
       def run(id = nil)
-        match = id.nil? ? Couchup.all : Couchup.get(id) 
+        match = id.nil? ? Couchup.all.collect{|c| c["doc"]} : Couchup.get(id) 
         ap match
         match
       end

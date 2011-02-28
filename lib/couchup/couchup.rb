@@ -36,10 +36,11 @@ module Couchup
       def ready?
         uuid = nil
         begin
-          puts (info = server.info)
+          ap (info = server.info)
         rescue
-          puts $!.backtrace
-          puts $!.inspect
+          ap $!.inspect
+          ap $!.backtrace if debug?
+          
         end
         !info.nil?
       end
@@ -51,6 +52,7 @@ module Couchup
       def all(options={})
         @db.documents(options.merge(:include_docs => true))["rows"]
       end
+      
       def debug=(value)
         @debug = value
       end

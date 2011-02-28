@@ -41,7 +41,7 @@ port = options[:port] || "5984"
 Couchup::Commands::Connect.new.run(host, port)
 Couchup::Commands::Use.new.run(options[:db]) unless  options[:db].nil?
 Couchup.debug = true if options[:bug]
-puts "Type help to view the list of things you can do. And Yeah Relax."
+ap "Type help to view the list of things you can do. And Yeah Relax."
 
 ARGV.clear
 
