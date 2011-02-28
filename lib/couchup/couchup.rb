@@ -2,6 +2,7 @@ module Couchup
   class Couchup
     class << self
       attr_accessor :port, :host
+      attr_accessor :last_result
       def server
         @server ||= CouchRest::Server.new("http://#{host}:#{port}")
       end
@@ -26,7 +27,7 @@ module Couchup
         database.delete_doc(doc)
       end
       def delete_all_docs(view_name)
-        all_docs = view_name.nil? ? all(:include_docs => true)["rows"] : MapReduce.map(view_name)
+        all_docs = view_name.nil? ? all : MapReduce.map(view_name)
         all_docs.collect{|d| d["doc"]}.each do |doc|
           database.delete_doc(doc) unless (doc["_id"] =~ /^_design/)
         end
@@ -48,7 +49,7 @@ module Couchup
       end
 
       def all(options={})
-        @db.documents(options)
+        @db.documents(options.merge(:include_docs => true))["rows"]
       end
       def debug=(value)
         @debug = value
