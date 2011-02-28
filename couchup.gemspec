@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["V Sreekanth"]
   s.email       = ["sreeix@gmail.com"]
   s.homepage    = "http://blog.activesphere.com/introducing-couchup-an-interactive-couchdb-co"
-  s.summary     = %q{Command line inteface to a couchdb deployment.}
-  s.description = %q{Command line inteface to a couchdb deployment.}
+  s.summary     = %q{Command line interface to a couchdb deployment.}
+  s.description = %q{Command line interface to a couchdb deployment.}
 
   s.rubyforge_project = "couchup"
 
