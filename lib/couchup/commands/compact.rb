@@ -2,10 +2,15 @@ module Couchup
   module Commands
     class Compact
       def run(*params)
-        Couchup.database.compact!
+        db = params.shift
+        if(db.nil?)
+          Couchup.database.compact!
+        else
+          Couchup.database(db).compact!
+        end
       end
       def self.describe
-        "Compacts the database. To preserve space"
+        "Compacts the current database. To preserve space."
       end
     end
   end
