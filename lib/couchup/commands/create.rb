@@ -28,13 +28,17 @@ module Couchup
         
         `#{ENV['EDITOR']} #{tmp_file_path}`
         contents = File.open(tmp_file_path).read
-        ::Couchup::View.create(name, contents) unless contents.blank?
+        unless contents.blank?
+          ::Couchup::View.create(name, contents) 
+        end
         file.close
         file.unlink
       end
       
       def self.describe
-        "Creates a new database and switches to the database if using create :database, :foo or a new view if using create :view,'Rider/by_number'"
+        {:description => "Creates a new database and switches to the database",
+        :usage => " create :database | :view , name",
+        :examples => ["create :database, riders", "create :view, 'Riders/test'"]}
       end
     end
   end

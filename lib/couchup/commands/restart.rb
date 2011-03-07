@@ -6,7 +6,10 @@ module Couchup
       end
     
       def self.describe
-        "Restarts the couchdb server. Please be careful with it. It will not prompt you for anything."
+        {:description => "Restarts the couchdb server. Please be careful with it. It will not prompt you for anything.",
+        :examples => ["restart"],
+        :usage => 'restart'
+      }
       end
     end
   end

@@ -8,7 +8,10 @@ module Couchup
       end
 
       def self.describe
-        "get [id] retuns the document with the id. Just 'get' retrives all documents from the current database"
+        {:description => "Retrives documents from the current database",
+        :usage  => "get [:doc], [<id>]",
+        :examples => ["get :doc, '2a663b5936f98fe225d64fcaa89e3281'", "get"]}
+        
       end
     end
   end

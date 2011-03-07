@@ -2,17 +2,29 @@ module Couchup
   module Commands
     class Help
       def run(param = nil)
-        commands = param.nil? ? Commands.constants : [param.camelize]
-        commands.each do |stuff|
+        param.nil? ? show_all : show(param.camelize)
+        nil
+      end
+      def show(command)
+        k = Commands.const_get(command.to_s)
+        ap k.describe
+      end
+      
+      def show_all
+        Commands.constants.each do |stuff|
           k = Commands.const_get(stuff)
           print stuff.underscore
           print (stuff.underscore.size > 10) ? "\t" : "\t\t"  
-          ap k.respond_to?(:describe) ? k.describe : "No Help"
+          ap k.respond_to?(:describe) ? k.describe[:description] : "No Help"
         end
+        
       end
     
       def self.describe
-        "Help on the system, 'help :get' will provider help about using get."
+       { :description =>  "Help on the system",
+        :usage => "help [<command>]",
+        :examples => ["help", "help :get"]}
+        
       end
     end
   end

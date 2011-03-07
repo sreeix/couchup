@@ -12,7 +12,10 @@ module Couchup
       end
     
       def self.describe
-        "Use provided database"
+       { :description => "Use provided database",
+         :detail => "use <database>",
+         :examples => ["use 'riders'"]
+         }
       end
     end
   end

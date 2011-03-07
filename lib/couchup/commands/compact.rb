@@ -10,7 +10,10 @@ module Couchup
         end
       end
       def self.describe
-        "Compacts the current database. To preserve space."
+        {:description => "Compacts the current database or specified database. To preserve space.",
+        :usage => "compact [db_name]",
+        :examples =>[ "compact", "compact 'Riders/winners"]
+        }
       end
     end
   end

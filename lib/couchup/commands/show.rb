@@ -11,7 +11,9 @@ module Couchup
       end
 
       def self.describe
-        "show databases if databases is specified or views if views is specified. defaults to databases."
+        {:description => "show databases or views on the current instance/database",
+        :details => "show [:databases | :views], [:design]",
+        :examples => ["show", "show :databases", "show :views"]}
       end
     end
   end

@@ -11,7 +11,9 @@ module Couchup
       end
 
       def self.describe
-        "Drops a either of :database, :view , doc. Use it with drop :database, <dbname> or drop :view, 'Rider/test2', or drop :doc, <id> or even drop :all_docs which removes just the documents"
+        {:description => "Drops specified object from couchdb",
+        :usage => "drop [:database | :view | :doc | :all_docs]",
+        :examples => ["drop :database, 'test'", "drop :view, 'Riders/top_ten'", "drop :doc, '23'", "drop :all_docs"]}
       end
     end
   end

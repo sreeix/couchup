@@ -9,7 +9,10 @@ module Couchup
       end
       
       def self.describe
-        "Allows replication to different databases. Try replicate_to 'http://foo.bar.com:5984/billing' :continous"
+       { :description => "Allows replication to different databases",
+        :examples => ["replicate_to :riders_dev", "replicate_to 'http://foo.bar.com:5984/billing', :continous"],
+        :usage => "replicate_to <target_db>, options"
+      }
       end
       
     end
