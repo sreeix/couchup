@@ -20,6 +20,14 @@ def database
   @db ||= CouchRest.database("http://#{HOST}:#{PORT}/#{TEST_DATABASE}")
 end
 
+def reset_data!
+  database.documents(:include_docs => true)["rows"].collect{|r| r["doc"]}.each {|d|database.delete_doc(d) unless d["_id"] =~ /_design/}
+end
+
+def ap(*params)
+  # no op
+end
+
 RSpec.configure do |config|
   config.before(:all) do 
     begin

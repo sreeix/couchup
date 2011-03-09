@@ -15,9 +15,22 @@ module Couchup
         database.save_doc(ddoc)
       end
       
-      it "Runs a simple map" do
-        Map.new.run("Rider/all")
+      describe "simple map" do
+        after(:each) do
+          reset_data!
+        end
+        it "with no documents should return empty" do
+          res = Map.new.run("Rider/all")
+          res.size.should ==0
+        end
+
+        it "with documents should find all" do
+          5.times {|n| database.save_doc({:name => "foo_#{n}"})}
+          res = Map.new.run("Rider/all")
+          res.size.should == 5
+        end
       end
+
     end  
   end
 end
