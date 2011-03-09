@@ -7,18 +7,18 @@ module Couchup
           "_id" => "_design/Rider",
           "views" => {
             "all" => {
-              "map" => "function(doc){emit(doc['_id'], 1)}",
+              "map" => "function(doc){if(doc.name) emit(doc.name, 1)}",
               "reduce" => "_sum"
             }
           }
         }
         database.save_doc(ddoc)
       end
+      after(:each) do
+         reset_data!
+       end
       
       describe "simple map" do
-        after(:each) do
-          reset_data!
-        end
         it "with no documents should return empty" do
           res = Map.new.run("Rider/all")
           res.size.should ==0
@@ -31,6 +31,47 @@ module Couchup
         end
       end
 
+      describe "map with a key" do
+        it "should return nothing when key is not found" do
+          res = Map.new.run("Rider/all", "xxx")
+          res.size.should == 0
+        end
+
+        it "should find one" do
+          database.save_doc({:name => "foo"})
+          res = Map.new.run("Rider/all", "foo")
+          res.size.should == 1
+        end
+
+        it "should find all matching" do
+          database.save_doc({:name => "foo"})
+          database.save_doc({:name => "foo"})
+          database.save_doc({:name => "bar"})
+          res = Map.new.run("Rider/all", "foo")
+          res.size.should == 2
+        end
+      end
+      describe "map with multiple keys" do
+        it "returns all matching keys" do
+          database.save_doc({:name => "foo"})
+          database.save_doc({:name => "foo"})
+          database.save_doc({:name => "bar"})
+          res = Map.new.run("Rider/all", "foo", "bar", "tar")
+          res.size.should == 3
+        end  
+
+        it "returns matching keys" do
+          database.save_doc({:name => "foo"})
+          database.save_doc({:name => "foo"})
+          database.save_doc({:name => "bar"})
+
+          res = Map.new.run("Rider/all", ["bar", "tar"])
+          res.size.should == 1
+        end  
+      end
+      describe "startkey" do
+        
+      end
     end  
   end
 end
