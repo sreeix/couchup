@@ -57,10 +57,13 @@ module Couchup
     end
     
     
-    def self.create(name, file_contents)
-      v = new(name)
-      
+    def self.create_from_file(name, file_contents)
       map, reduce = parse(file_contents)
+      create(name, map, reduce)
+    end
+
+    def self.create(name, map, reduce)
+      v = new(name)
       v.map = map
       v.reduce = reduce unless reduce.blank?
       ap v
