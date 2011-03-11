@@ -9,12 +9,17 @@ module Couchup
       end
     
       def database=(database)
-        @db  = CouchRest.database!("http://#{host}:#{port}/#{database}")
+         @db = database.nil? ? nil : CouchRest.database!("http://#{host}:#{port}/#{database}")
       end
-    
+
+      def new_database(db)
+        CouchRest.database!("http://#{host}:#{port}/#{db}")
+      end
+      
       def database
         @db
       end
+      
       
       def views(design = nil)
         params = design.nil? ? {:startkey => '_design', :endkey => '_design0'} : {:key => "_design\\#{design}"}

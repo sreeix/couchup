@@ -4,10 +4,17 @@ module Couchup
       def run(*params)
         db = params.shift
         if(db.nil?)
-          Couchup.database.compact!
+          instance = Couchup.database
         else
-          Couchup.database(db).compact!
+          instance = Couchup.new_database(db)
         end
+        puts instance.inspect
+        if instance.nil?
+          ap "Database not found."
+        else
+          instance.compact!
+        end
+        
       end
       def self.describe
         {:description => "Compacts the current database or specified database. To preserve space.",
