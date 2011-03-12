@@ -1,9 +1,13 @@
 module Couchup
   module Commands
     class Connect
-      def run(host = 'localhost', port = 5984)
+      def run(host = 'localhost', port = 5984, user = nil, pass = nil)
         Couchup.host = host
         Couchup.port = port
+        Couchup.user = user
+        Couchup.password = pass
+        puts Couchup.using_auth?
+        puts Couchup.host_string
         if(Couchup.ready?)
           ap "Connected to #{Couchup.host}:#{Couchup.port}" 
         else

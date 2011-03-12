@@ -30,11 +30,19 @@ OptionParser.new do |opts|
     options[:db] = db
   end
 
+  opts.on("-u", "--username USER", "Database to connect to.") do |user|
+    options[:user] = user
+  end
+
+  opts.on("-p", "--password PASSWORD", "Database to connect to.") do |password|
+    options[:password] = password
+  end
+
   opts.on("-b", "--debug", "Show debugging information") do |bug|
     options[:bug] = bug
   end
 
-  opts.on("-c", "--command COMMAND", "Runs a specific command and prints the result") do |c|
+  opts.on("-c", "--command COMMAND", "Runs a specific command and prints the result, seperate with ';' to run  multiple commands") do |c|
     options[:command] = c
   end
   
@@ -42,7 +50,7 @@ end.parse!
 
 host = options[:host] || 'localhost'
 port = options[:port] || "5984"
-Couchup::Commands::Connect.new.run(host, port)
+Couchup::Commands::Connect.new.run(host, port, options[:user], options[:password])
 Couchup::Commands::Use.new.run(options[:db]) unless  options[:db].nil?
 Couchup::Couchup.debug = true if options[:bug]
 

@@ -1,17 +1,24 @@
 module Couchup
   class Couchup
     class << self
-      attr_accessor :port, :host
+      attr_accessor :port, :host, :user, :password
       attr_accessor :last_result
 
       def server
-        @server ||= CouchRest::Server.new("http://#{host}:#{port}")
+        @server ||= CouchRest::Server.new(host_string)
       end
     
       def database=(database)
-        @db  = CouchRest.database!("http://#{host}:#{port}/#{database}")
+        @db  = CouchRest.database!(host_string(database))
       end
-    
+      def host_string(database=nil)
+        base_string = using_auth? ? "#{user}:#{password}@#{host}:#{port}" : "#{host}:#{port}"
+        database.blank? ? "http://#{base_string}"  : "http://#{base_string}/#{database}"
+      end
+      def using_auth?
+        !user.blank?
+      end
+      
       def database
         @db
       end
