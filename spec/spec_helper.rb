@@ -17,7 +17,7 @@ PORT = ENV['PORT'] || "5984"
 TEST_DATABASE = 'couchup_test'
 
 def database
-  @db ||= CouchRest.database("http://#{HOST}:#{PORT}/#{TEST_DATABASE}")
+  @db ||= CouchRest.database!("http://#{HOST}:#{PORT}/#{TEST_DATABASE}")
 end
 
 def reset_data!
