@@ -33,6 +33,10 @@ OptionParser.new do |opts|
   opts.on("-b", "--debug", "Show debugging information") do |bug|
     options[:bug] = bug
   end
+
+  opts.on("-c", "--command COMMAND", "Runs a specific command and prints the result") do |c|
+    options[:command] = c
+  end
   
 end.parse!
 
@@ -41,6 +45,16 @@ port = options[:port] || "5984"
 Couchup::Commands::Connect.new.run(host, port)
 Couchup::Commands::Use.new.run(options[:db]) unless  options[:db].nil?
 Couchup::Couchup.debug = true if options[:bug]
+
+unless(options[:command].nil?)
+  commands = options[:command].split( ";")
+  commands.each do |command| 
+    c, params = command.split
+    ap send(c, *params)
+  end
+  exit
+end
+
 ap "Type help to view the list of things you can do. And Yeah Relax."
 
 ARGV.clear

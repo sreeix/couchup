@@ -36,7 +36,8 @@ module Couchup
           file.unlink
         else
           map = params.shift
-          ::Couchup::View.create(name, map, params.shift)
+          reduce = params.shift
+          ::Couchup::View.create(name, map, reduce)
         end
       end
       
