@@ -8,7 +8,6 @@ module Couchup
         else
           instance = Couchup.new_database(db)
         end
-        puts instance.inspect
         if instance.nil?
           ap "Database not found."
         else

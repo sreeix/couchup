@@ -6,8 +6,6 @@ module Couchup
         Couchup.port = port
         Couchup.user = user
         Couchup.password = pass
-        puts Couchup.using_auth?
-        puts Couchup.host_string
         if(Couchup.ready?)
           ap "Connected to #{Couchup.host}:#{Couchup.port}" 
         else

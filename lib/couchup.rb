@@ -21,7 +21,6 @@ Couchup::Commands.constants.each do |c|
         Couchup::Couchup.last_result = instance.run(*args)
         nil
       rescue 
-        puts $!.class
         ap $!.inspect
         ap $!.backtrace if Couchup::Couchup.debug?
       end

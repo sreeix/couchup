@@ -9,7 +9,7 @@ module Couchup
       end
     
       def database=(database)
-        @db  = CouchRest.database!(host_string(database))
+        @db  = database.nil? ? nil : CouchRest.database!(host_string(database))
       end
       
       
@@ -19,7 +19,6 @@ module Couchup
       end
       def using_auth?
         !user.blank?
-         @db = database.nil? ? nil : CouchRest.database!("http://#{host}:#{port}/#{database}")
       end
 
       def new_database(db)
