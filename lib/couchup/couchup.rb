@@ -11,17 +11,25 @@ module Couchup
       def database=(database)
         @db  = CouchRest.database!(host_string(database))
       end
+      
+      
       def host_string(database=nil)
         base_string = using_auth? ? "#{user}:#{password}@#{host}:#{port}" : "#{host}:#{port}"
         database.blank? ? "http://#{base_string}"  : "http://#{base_string}/#{database}"
       end
       def using_auth?
         !user.blank?
+         @db = database.nil? ? nil : CouchRest.database!("http://#{host}:#{port}/#{database}")
+      end
+
+      def new_database(db)
+        CouchRest.database!(host_string(db))
       end
       
       def database
         @db
       end
+      
       
       def views(design = nil)
         params = design.nil? ? {:startkey => '_design', :endkey => '_design0'} : {:key => "_design\\#{design}"}
