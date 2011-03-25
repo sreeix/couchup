@@ -6,8 +6,9 @@ module Couchup
         if(what == 'view')
           create_view(params.shift, *params)
         else
-          Couchup.server.database!(params.first)
-          Use.new.run(params.first)
+          new_db = params.shift.to_s
+          Couchup.server.database!(new_db)
+          Use.new.run(new_db)
         end
       end
       

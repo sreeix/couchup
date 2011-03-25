@@ -12,6 +12,7 @@ Dir[File.expand_path('../couchup/commands/*.rb',__FILE__)].each { |file| require
 Dir[File.expand_path('../couchup/extensions/*.rb',__FILE__)].each { |file| require file}
 Dir[File.expand_path('../couchup/*.rb',__FILE__)].each { |file| require file}
 
+include Couchup::ShortHands
 
 Couchup::Commands.constants.each do |c|
   instance_eval "
@@ -26,8 +27,6 @@ Couchup::Commands.constants.each do |c|
       end
     end"
 end
-
-
 instance_eval "def last_result
   Couchup::Couchup.last_result
 end

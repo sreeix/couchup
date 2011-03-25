@@ -4,7 +4,7 @@ Couchup
 This is a command line interface to CouchDb.
 
 
-Installaton
+Installation
 ===========
 
 gem install couchup
@@ -27,7 +27,7 @@ Remember this is just an IRB, so the command syntax is a little verbose.
 
 create :database, :riders (Note the commas and symbols)
 
-Also symbols and strings can be used interchangebly, So the above is the same as
+Also symbols and strings can be used interchangeably, So the above is the same as
 
 create "database", "riders"
 
