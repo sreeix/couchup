@@ -19,12 +19,12 @@ module Couchup
     end
 
     def self.reduce(*params)
-      view({:reduce => true}, *params)
+      view({:reduce => true,:group => true}, *params)
     end
     
   private
     def self.view(options, *params)
-      name = params.shift
+      name = params.shift.to_s
       view_params = options
       if params.size == 1
         val = params.first

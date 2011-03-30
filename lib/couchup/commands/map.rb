@@ -1,7 +1,9 @@
 module Couchup  
   module Commands
     class Map
+      include ::Couchup::CommandExtensions
       def run(*params)
+        needs_db
         rows = MapReduce.map(*params)
         ap "Found #{rows.size} item(s)"
         ap rows

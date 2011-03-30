@@ -8,9 +8,10 @@ rescue LoadError
 end
 
 require  File.expand_path '../couchup/couchup', __FILE__
+Dir[File.expand_path('../couchup/*.rb',__FILE__)].each { |file| require file}
+
 Dir[File.expand_path('../couchup/commands/*.rb',__FILE__)].each { |file| require file}
 Dir[File.expand_path('../couchup/extensions/*.rb',__FILE__)].each { |file| require file}
-Dir[File.expand_path('../couchup/*.rb',__FILE__)].each { |file| require file}
 
 include Couchup::ShortHands
 
@@ -21,6 +22,8 @@ Couchup::Commands.constants.each do |c|
         instance = Couchup::Commands.const_get(:#{c}).new
         Couchup::Couchup.last_result = instance.run(*args)
         nil
+      rescue ArgumentError => e
+        ap e
       rescue 
         ap $!.inspect
         ap $!.backtrace if Couchup::Couchup.debug?
