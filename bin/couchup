@@ -13,7 +13,6 @@ if File.exists?( File.expand_path(rcfile = "~/.couchuprc") )
   load(rcfile)
 end
 
-
 options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: example.rb [options]"

@@ -1,4 +1,8 @@
 class Symbol
+  def blank?
+    nil || to_s.strip.empty?
+  end
+
   def constantize
     to_s.constantize
    end

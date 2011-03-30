@@ -11,9 +11,11 @@ module Couchup
       end
 
       def self.describe
-        {:description => "show databases or views on the current instance/database",
-        :details => "show [:databases | :views], [:design]",
-        :examples => ["show", "show :databases", "show :views"]}
+        {
+          :description => "show databases or views on the current instance/database",
+          :details => "show [:databases | :views], [:design]",
+          :examples => ["show", "show :databases", "show :views"]
+        }
       end
     end
   end

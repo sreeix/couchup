@@ -17,7 +17,7 @@ module Couchup
           print (stuff.underscore.size > 10) ? "\t" : "\t\t"  
           ap k.respond_to?(:describe) ? k.describe[:description] : "No Help"
         end
-        
+        ap "Type help <command> for more detailed info"
       end
     
       def self.describe
