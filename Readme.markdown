@@ -15,6 +15,7 @@ Usage
 ======
 
 Couchup is a command line utility piggybacking on the irb. So you can do all the ruby stuff in it.
+
 Type help on command line to list the stuff you can do with couchup.
 
 
@@ -23,6 +24,7 @@ $ couchup
 
 
 You see a bunch of commands that you can use.
+
 Remember this is just an IRB, so the command syntax is a little verbose.
 
 create :database, :riders (Note the commas and symbols)
@@ -40,8 +42,15 @@ Command line Params
 > couchup --help will print the help
  
  use -h (or--host) to set the host machine to connect to
+
  use -p (or --port) to set the port of the host couchdb
+
  use -d (or --database) to set the database to use by default
+
+ use -u (or --username) to use a specific user login (when in admin mode)
+
+ use -a (or --password) to specify the password (when in admin mode)
+
 
 
 Basics
@@ -66,7 +75,11 @@ Most Couchup commands need you to be on a specific database.
 Shortcuts
 ----------
 
-last_result or __ are short hands to the last result returned by couch operations. These are typically json document( or array of documents)
+*last_result* or *__* are short hands for the last result returned by couch operations( Note this is not the same as _ that is available in irb). 
+
+These are typically json documents( or array of documents)
+
+
 Most commands that are in the form of <operation> <:view|| :database || :doc> have short hands like <operation>_<view> or <operation>_database
     
 eg. *create_database :foo*  is same as  *create :database, :foo*
@@ -91,8 +104,11 @@ gets docucment by the given ID.
 --------------
 
 There are 2 different commands.
+
 map Will just run the map function
+
 view : will run both the map and reduce.
+
 They have very similar semantics, except for where noted.
 
 > map "Rider/all"
@@ -108,16 +124,16 @@ will return only only the document matching the above key.
 
 The following will query the view with a post to get all the matching keys.
 
-map "Rider/all", ["78ea2a07be87b6fa0e4afed5d81f3729", "ee23399aad3f8685e64f455504000d49"]
+> map "Rider/all", ["78ea2a07be87b6fa0e4afed5d81f3729", "ee23399aad3f8685e64f455504000d49"]
 
 The following will query the view with a startkey and endkey semantics.
 
-map "Rider/all", :startkey=> "78ea2a07be87b6fa0e4afed5d81f3729", :endkey=> "ee23399aad3f8685e64f455504000d49"
+> map "Rider/all", :startkey=> "78ea2a07be87b6fa0e4afed5d81f3729", :endkey=> "ee23399aad3f8685e64f455504000d49"
 
 
 The same rules apply for *view* command as  well, and additionally it takes the group_level parameter as well.
 
-view "Rider/all", :startkey=> "78ea2a07be87b6fa0e4afed5d81f3729", :endkey=> "ee23399aad3f8685e64f455504000d49"
+> view "Rider/all", :startkey=> "78ea2a07be87b6fa0e4afed5d81f3729", :endkey=> "ee23399aad3f8685e64f455504000d49"
 
 
 # Creating and modifying views.
@@ -129,20 +145,48 @@ It is important to set the EDITOR variable before running couchup, because we us
 
 Will pop a textmate/emacs/vi window with some templates. If the view exists it will show the existing code. So you can modify it.
 
-
 To cancel creation of the view, just empty the contents of the file and save.
+
+If you want to specify the map and view function on couchup
+
+> create :view, 'Rider/test', "function(doc) { if( doc.name) emit(doc.name, 1);}"
+
 
 # Modifying Documents
 -----------------------
 
-We use the last_result that is described in the Basics section, and leverage ruby to do the save. 
+We use the last_result that is described in the Basics section, and leverage ruby to change documents in couchdb
 
-get("<id>")
-last_result[:number] = 100
-last_result.save
+> get("<id>")
+> last_result[:number] = 100
+> last_result.save
 
 
 You could do this with the view results as well.    
+
+
+# Non Interactive Mode
+------------------------
+
+You can just run a few commands on couch by using the -c (--command) option for couchup
+
+e.g : 
+> couchup -d riders -c map Riders/by_arrival_time
+
+Will run the Riders/by_arrival_time  map function on riders database.
+
+
+Note the absence of symbols and strings in such a mode
+
+Multi line  commands are supported by use of ';'
+
+e.g: 
+
+> couchup -c create database new_riders; use riders; replicate_to new_riders
+
+
+
+
 
 
 

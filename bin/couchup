@@ -33,7 +33,7 @@ OptionParser.new do |opts|
     options[:user] = user
   end
 
-  opts.on("-p", "--password PASSWORD", "Database to connect to.") do |password|
+  opts.on("-a", "--password PASSWORD", "Database to connect to.") do |password|
     options[:password] = password
   end
 
