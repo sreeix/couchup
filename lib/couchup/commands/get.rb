@@ -1,7 +1,9 @@
 module Couchup
   module Commands
     class Get
+      include ::Couchup::CommandExtensions
       def run(id = nil)
+        needs_db!
         match = id.nil? ? Couchup.all.collect{|c| c["doc"]} : Couchup.get(id) 
         ap match
         match

@@ -14,8 +14,11 @@ module Couchup
 
         it "should fail when on no database" do
           Couchup.database = nil
-          res = Compact.new.run()
-          res.should be_nil
+          begin
+            Compact.new.run()
+            fail("Expected compact to fail")
+          rescue ArgumentError => e
+          end
         end
       end
 

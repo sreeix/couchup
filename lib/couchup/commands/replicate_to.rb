@@ -1,9 +1,11 @@
 module Couchup
   module Commands
     class ReplicateTo
+      include ::Couchup::CommandExtensions
       def run(*params)
         dest = params.shift 
         option = params.shift
+        needs_db!
         dest_db = (dest =~ /(http\w:\/\/.*)\/(.*)/) ? CouchRest::Database.new(CouchRest::Server.new($1), $2) : CouchRest::Database.new(Couchup.server, dest) 
         Couchup.database.replicate_to dest_db, (option.to_s == "continous")
       end
