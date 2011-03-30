@@ -3,7 +3,7 @@ module Couchup
     class View
       include ::Couchup::CommandExtensions
       def run(*params)
-        needs_db
+        needs_db!
         rows = MapReduce.reduce(*params)
         ap "Found #{rows.size} item(s)"
         ap rows

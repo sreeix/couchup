@@ -1,9 +1,11 @@
 module Couchup
   module Commands
     class Create
+      include ::Couchup::CommandExtensions
       def run(*params)
         what = params.shift.to_s
         if(what == 'view')
+          needs_db!
           create_view(params.shift, *params)
         else
           new_db = params.shift.to_s

@@ -1,6 +1,7 @@
 module Couchup
   module Commands
     class Drop
+      include ::Couchup::CommandExtensions
       def run(*params)
         op_type = params.shift.to_s
         (params.first.nil? ? Couchup.database : Couchup.new_database(params.first)).delete! if op_type == 'database'

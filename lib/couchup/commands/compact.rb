@@ -1,9 +1,11 @@
 module Couchup
   module Commands
     class Compact
+      include ::Couchup::CommandExtensions      
       def run(*params)
         db = params.shift
         if(db.nil?)
+          needs_db!
           instance = Couchup.database
         else
           instance = Couchup.new_database(db)
