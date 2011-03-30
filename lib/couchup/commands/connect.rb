@@ -13,9 +13,11 @@ module Couchup
         end
       end
       def self.describe
-        {:description => "Connects to the couch server. Takes host and port defaults to 5984",
-        :usage => 'connect [database], [port]',
-        :examples => ["connect", "connect bigcouch.test.com", "connect 'bigcouch.test.com', 5986"]}
+        {
+          :description => "Connects to the couch server. Takes host and port defaults to 5984",
+          :usage => 'connect [database], [port]',
+          :examples => ["connect", "connect bigcouch.test.com", "connect 'bigcouch.test.com', 5986"]
+        }
       end
     end
   end

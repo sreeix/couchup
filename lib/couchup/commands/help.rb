@@ -21,9 +21,11 @@ module Couchup
       end
     
       def self.describe
-       { :description =>  "Help on the system",
-        :usage => "help [<command>]",
-        :examples => ["help", "help :get"]}
+       { 
+         :description =>  "Help on the system",
+         :usage => "help [<command>]",
+         :examples => ["help", "help :get"]
+       }
         
       end
     end

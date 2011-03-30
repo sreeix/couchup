@@ -45,9 +45,11 @@ module Couchup
       end
       
       def self.describe
-        {:description => "Creates a new database and switches to the database",
-        :usage => " create :database | :view , name",
-        :examples => ["create :database, riders", "create :view, 'Riders/test'"]}
+        {
+          :description => "Creates a new database and switches to the database",
+          :usage => " create :database | :view , name",
+          :examples => ["create :database, riders", "create :view, 'Riders/test'"]
+        }
       end
     end
   end

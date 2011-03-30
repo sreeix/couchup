@@ -10,10 +10,11 @@ module Couchup
       end
       
       def self.describe
-        {:description => "Renames database or a view both on the same Couch instance. Replicates to new db and deletes the old. Hence slow.",
-        :usage => "rename <src_database>, <target_database>",
-        :examples => ["rename 'riders_test', 'riders_development'"]
-      }
+        {
+          :description => "Renames database or a view both on the same Couch instance. Replicates to new db and deletes the old. Hence slow.",
+          :usage => "rename <src_database>, <target_database>",
+          :examples => ["rename 'riders_test', 'riders_development'"]
+        }
       end
     end
   end
